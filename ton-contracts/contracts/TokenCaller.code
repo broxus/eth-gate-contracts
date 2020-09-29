@@ -1,0 +1,535 @@
+.globl	constructor
+.public	constructor
+.type	constructor, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7_with_init_storage$
+}
+IF
+;; constructor protection
+GETGLOB 6
+THROWIF 51
+PUSHINT 1
+SETGLOB 6
+;; end constructor protection
+; Decode input parameters
+; Decode _tokenContract
+LDMSGADDR
+ENDS
+;; param: _tokenContract
+; constructor TokenCaller
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+GETGLOB 2
+;; ==
+EQUAL
+THROWIFNOT 100
+ACCEPT
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+; expValue
+; end expValue
+; colValue
+SETGLOB 12
+; end colValue
+; expValue
+; end expValue
+;; push identifier _tokenContract
+DUP
+; colValue
+SETGLOB 11
+; end colValue
+DROP
+; end constructor TokenCaller
+CALL $c7_to_c4$
+TRUE
+SETGLOB 7
+
+.globl	transferTokens
+.public	transferTokens
+.type	transferTokens, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+; Decode tokenID
+LDU 256
+; Decode recipient
+LDMSGADDRQ
+PUSHCONT {
+	;; load next cell
+	LDREF
+	ENDS
+	CTOS
+	LDMSGADDR
+}
+IFNOT
+; Decode amount
+LDUQ 256
+PUSHCONT {
+	;; load next cell
+	LDREF
+	ENDS
+	CTOS
+	LDU 256
+}
+IFNOT
+ENDS
+;; param: tokenID
+;; param: recipient
+;; param: amount
+; modifier onlyOwner
+;; push identifier owner
+GETGLOB 12
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+;; ==
+EQUAL
+THROWIFNOT 135
+ACCEPT
+; function transferTokens
+;; Remote call Token.transfer
+;; push identifier tokenContract
+GETGLOB 11
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHSLICE x3989680000000000000000000000000004_
+STSLICER
+STSLICECONST 0
+STSLICECONST 1
+NEWC
+STSLICECONST x1116bbdc
+;; tokenID
+;; push identifier tokenID
+PUSH S4
+STUR 256
+;; recipient
+;; push identifier recipient
+PUSH S3
+STSLICER
+;; amount
+;; push identifier amount
+PUSH S2
+STUR 256
+STBREFR
+ENDC
+PUSHINT 1
+SENDRAWMSG
+; end function transferTokens
+BLKDROP 3
+; end modifier onlyOwner
+CALL $c7_to_c4$
+TRUE
+SETGLOB 7
+
+.globl	transferTokens_internal
+.type	transferTokens_internal, @function
+;; param: tokenID
+;; param: recipient
+;; param: amount
+; modifier onlyOwner
+;; push identifier owner
+GETGLOB 12
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+;; ==
+EQUAL
+THROWIFNOT 135
+ACCEPT
+; function transferTokens
+;; Remote call Token.transfer
+;; push identifier tokenContract
+GETGLOB 11
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHSLICE x3989680000000000000000000000000004_
+STSLICER
+STSLICECONST 0
+STSLICECONST 1
+NEWC
+STSLICECONST x1116bbdc
+;; tokenID
+;; push identifier tokenID
+PUSH S4
+STUR 256
+;; recipient
+;; push identifier recipient
+PUSH S3
+STSLICER
+;; amount
+;; push identifier amount
+PUSH S2
+STUR 256
+STBREFR
+ENDC
+PUSHINT 1
+SENDRAWMSG
+; end function transferTokens
+BLKDROP 3
+; end modifier onlyOwner
+
+.globl	swapBackTokens
+.public	swapBackTokens
+.type	swapBackTokens, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+; Decode tokenID
+LDU 256
+; Decode amount
+LDUQ 256
+PUSHCONT {
+	;; load next cell
+	LDREF
+	ENDS
+	CTOS
+	LDU 256
+}
+IFNOT
+; Decode ethereumAddress
+LDUQ 256
+PUSHCONT {
+	;; load next cell
+	LDREF
+	ENDS
+	CTOS
+	LDU 256
+}
+IFNOT
+ENDS
+;; param: tokenID
+;; param: amount
+;; param: ethereumAddress
+; modifier onlyOwner
+;; push identifier owner
+GETGLOB 12
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+;; ==
+EQUAL
+THROWIFNOT 135
+ACCEPT
+; function swapBackTokens
+;; Remote call Token.swapBack
+;; push identifier tokenContract
+GETGLOB 11
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHSLICE x3989680000000000000000000000000004_
+STSLICER
+STSLICECONST 0
+STSLICECONST 1
+NEWC
+STSLICECONST x5406fd6a
+;; tokenID
+;; push identifier tokenID
+PUSH S4
+STUR 256
+;; amount
+;; push identifier amount
+PUSH S3
+STUR 256
+;; ethereumAddress
+;; push identifier ethereumAddress
+PUSH S2
+STUR 256
+STBREFR
+ENDC
+PUSHINT 1
+SENDRAWMSG
+; end function swapBackTokens
+BLKDROP 3
+; end modifier onlyOwner
+CALL $c7_to_c4$
+TRUE
+SETGLOB 7
+
+.globl	swapBackTokens_internal
+.type	swapBackTokens_internal, @function
+;; param: tokenID
+;; param: amount
+;; param: ethereumAddress
+; modifier onlyOwner
+;; push identifier owner
+GETGLOB 12
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+;; ==
+EQUAL
+THROWIFNOT 135
+ACCEPT
+; function swapBackTokens
+;; Remote call Token.swapBack
+;; push identifier tokenContract
+GETGLOB 11
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHSLICE x3989680000000000000000000000000004_
+STSLICER
+STSLICECONST 0
+STSLICECONST 1
+NEWC
+STSLICECONST x5406fd6a
+;; tokenID
+;; push identifier tokenID
+PUSH S4
+STUR 256
+;; amount
+;; push identifier amount
+PUSH S3
+STUR 256
+;; ethereumAddress
+;; push identifier ethereumAddress
+PUSH S2
+STUR 256
+STBREFR
+ENDC
+PUSHINT 1
+SENDRAWMSG
+; end function swapBackTokens
+BLKDROP 3
+; end modifier onlyOwner
+
+.globl	c7_to_c4
+.type	c7_to_c4, @function
+GETGLOB 2
+NEWC
+STU 256
+GETGLOB 3
+STUR 64
+GETGLOB 6
+STUR 1
+NEWC
+GETGLOB 12
+SWAP
+STU 256
+GETGLOB 10
+GETGLOB 11
+REVERSE 4, 0
+STBREF
+STU 256
+STSLICE
+ENDC
+POP C4
+
+.globl	c4_to_c7
+.type	c4_to_c7, @function
+PUSHROOT
+CTOS        ; c4
+LDU 256      ; pubkey c4
+LDU 64      ; pubkey timestamp c4
+LDU 1       ; pubkey [timestamp] constructor_flag memory
+LDREFRTOS
+PLDU 256
+SETGLOB 12
+LDU 256
+LDMSGADDR
+DROP
+SETGLOB 11
+SETGLOB 10
+TRUE
+SETGLOB 1   ; pubkey [timestamp] constructor_flag
+SETGLOB 6   ; pubkey [timestamp]
+SETGLOB 3   ; D
+SETGLOB 2
+
+.macro c4_to_c7_with_init_storage
+PUSHROOT
+CTOS        ; c4
+DUP        ; c4 c4
+SBITS      ; c4 bits
+GTINT 1    ; c4 bits>1
+PUSHCONT {
+	LDU 256      ; pubkey c4
+	LDU 64      ; pubkey timestamp c4
+	LDU 1       ; pubkey [timestamp] constructor_flag memory
+	LDREFRTOS
+	PLDU 256
+	SETGLOB 12
+	LDU 256
+	LDMSGADDR
+	DROP
+	SETGLOB 11
+	SETGLOB 10
+	TRUE
+	SETGLOB 1   ; pubkey [timestamp] constructor_flag
+	SETGLOB 6   ; pubkey [timestamp]
+	SETGLOB 3   ; D
+	SETGLOB 2
+}
+PUSHCONT {
+	PLDDICT   ; D
+	; init uniqueNonce
+	PUSHINT 0
+	SETGLOB 10
+	; init tokenContract
+	PUSHSLICE x8000000000000000000000000000000000000000000000000000000000000000001_
+	SETGLOB 11
+	; init owner
+	PUSHINT 0
+	SETGLOB 12
+	; set contract pubkey
+	PUSHINT 0
+	SWAP
+	PUSHINT 64
+	DICTUGET
+	THROWIFNOT 61
+	PLDU 256
+	SETGLOB 2
+	PUSHINT 0 ; timestamp
+	SETGLOB 3
+	PUSHINT 0 ; constructor_flag
+	SETGLOB 6
+	TRUE
+	SETGLOB 1
+	;; init state var: uniqueNonce
+	PUSHINT 123123
+	SETGLOB 10
+}
+IFELSE
+
+.internal-alias :main_internal,        0
+.internal	:main_internal
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Function: main_internal
+;; param: contract_balance
+;; param: msg_balance
+;; param: int_msg_info
+;; param: msg_body_slice
+PUSHINT 0  ; main_external trans id
+PUSH S2
+CTOS
+LDSLICE 3
+NIP
+LDI 1     ; bounced tail
+DROP
+IFRET
+PUSH S1    ; body
+SEMPTY     ; isEmpty
+PUSHCONT {
+}
+IFJMP
+PUSH S1            ; body
+LDUQ 32            ; [funcId] body' ok
+PUSHCONT {
+	THROW 60
+}
+IFNOTJMP
+PUSH2 S1,S1        ; funcId body' funcId funcId
+PUSHCONT {
+}
+IFNOTJMP
+LESSINT 3            ; funcId body' funcId<3
+PUSH S2              ; funcId body' funcId<3 funcId
+PUSHINT 4294967293   ; funcId body' funcId<3 funcId 4294967293
+GREATER              ; funcId body' funcId<3 funcId>4294967293
+OR                   ; funcId body' funcId<3||funcId>4294967293
+PUSHCONT {
+	THROW 60
+}
+IFJMP
+SWAP  ; body' funcId
+CALL 1
+GETGLOB 7
+ISNULL
+PUSHCONT {
+	THROW 60
+}
+IF
+
+.internal-alias :main_external,        -1
+.internal	:main_external
+PUSHINT -1 ; main_external trans id
+PUSH S1
+CALL $c4_to_c7_with_init_storage$
+LDU 1 ; haveSign msgSlice
+SWAP
+PUSHCONT {
+	PUSHINT 512
+	LDSLICEX ; signatureSlice msgSlice
+	DUP      ; signatureSlice msgSlice msgSlice
+	HASHSU   ; signatureSlice msgSlice hashMsgSlice
+	ROT
+	GETGLOB 2
+	DUP
+	SETGLOB 5
+	CHKSIGNU      ; msgSlice isSigned
+	THROWIFNOT 40 ; msgSlice
+}
+IF
+LDU 64                         ; timestamp msgSlice
+SWAP                           ; msgSlice timestamp
+CALL $replay_protection_macro$ ; msgSlice
+LDU 32  ; expireAt msgSlice
+SWAP    ; msgSlice expireAt
+NOW     ; msgSlice expireAt now
+GREATER ; msgSlice expireAt>now
+THROWIFNOT 57
+LDU  32 ; funcId body
+PUSH S1 ; funcId body funcId
+LESSINT 3            ; funcId body' funcId<3
+PUSH S2              ; funcId body' funcId<3 funcId
+PUSHINT 4294967293   ; funcId body' funcId<3 funcId 4294967293
+GREATER              ; funcId body' funcId<3 funcId>4294967293
+OR                   ; funcId body' funcId<3||funcId>4294967293
+PUSHCONT {
+	THROW 60
+}
+IFJMP
+SWAP    ; body funcId
+CALL 1
+GETGLOB 7
+ISNULL
+PUSHCONT {
+	THROW 60
+}
+IF
+

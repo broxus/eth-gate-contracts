@@ -1,0 +1,221 @@
+{
+	"ABI version": 2,
+	"header": ["time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+				{"name":"tokenIds","type":"uint256[]"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "isTokenSupported",
+			"inputs": [
+				{"name":"tokenID","type":"uint256"}
+			],
+			"outputs": [
+				{"name":"value0","type":"bool"}
+			]
+		},
+		{
+			"name": "updateTokenSupport",
+			"inputs": [
+				{"name":"tokenId","type":"uint256"},
+				{"name":"supportStatus","type":"bool"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "updateSupportStatuses",
+			"inputs": [
+				{"name":"tokenIds","type":"uint256[]"},
+				{"name":"supportStatuses","type":"bool[]"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "balanceOf",
+			"inputs": [
+				{"name":"tokenID","type":"uint256"},
+				{"name":"account","type":"address"}
+			],
+			"outputs": [
+				{"name":"value0","type":"uint256"}
+			]
+		},
+		{
+			"name": "decimals",
+			"inputs": [
+				{"name":"tokenID","type":"uint256"}
+			],
+			"outputs": [
+				{"name":"value0","type":"uint8"}
+			]
+		},
+		{
+			"name": "ethereumDecimals",
+			"inputs": [
+				{"name":"tokenID","type":"uint256"}
+			],
+			"outputs": [
+				{"name":"value0","type":"uint8"}
+			]
+		},
+		{
+			"name": "name",
+			"inputs": [
+				{"name":"tokenID","type":"uint256"}
+			],
+			"outputs": [
+				{"name":"value0","type":"bytes[]"}
+			]
+		},
+		{
+			"name": "symbol",
+			"inputs": [
+				{"name":"tokenID","type":"uint256"}
+			],
+			"outputs": [
+				{"name":"value0","type":"bytes[]"}
+			]
+		},
+		{
+			"name": "totalSupply",
+			"inputs": [
+				{"name":"tokenID","type":"uint256"}
+			],
+			"outputs": [
+				{"name":"value0","type":"uint256"}
+			]
+		},
+		{
+			"name": "setUpToken",
+			"inputs": [
+				{"name":"tokenID","type":"uint256"},
+				{"name":"_decimals","type":"uint8"},
+				{"name":"_ethereumDecimals","type":"uint8"},
+				{"name":"_name","type":"bytes[]"},
+				{"name":"_symbol","type":"bytes[]"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "transfer",
+			"inputs": [
+				{"name":"tokenID","type":"uint256"},
+				{"name":"recipient","type":"address"},
+				{"name":"amount","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "mint",
+			"inputs": [
+				{"name":"tokenID","type":"uint256"},
+				{"name":"crystalsToSend","type":"uint128"},
+				{"name":"recipient","type":"address"},
+				{"name":"amount","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "burn",
+			"inputs": [
+				{"name":"tokenID","type":"uint256"},
+				{"name":"recipient","type":"address"},
+				{"name":"amount","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "updatePaused",
+			"inputs": [
+				{"name":"status","type":"bool"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "getPaused",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"value0","type":"bool"}
+			]
+		},
+		{
+			"name": "swapBack",
+			"inputs": [
+				{"name":"tokenID","type":"uint256"},
+				{"name":"amount","type":"uint256"},
+				{"name":"ethereumAddress","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "transferGrams",
+			"inputs": [
+				{"name":"receiver","type":"address"},
+				{"name":"amount","type":"uint128"},
+				{"name":"bounce","type":"bool"}
+			],
+			"outputs": [
+			]
+		}
+	],
+	"data": [
+	],
+	"events": [
+		{
+			"name": "Transfer",
+			"inputs": [
+				{"name":"tokenID","type":"uint256"},
+				{"name":"_from","type":"address"},
+				{"name":"_to","type":"address"},
+				{"name":"amount","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "Burn",
+			"inputs": [
+				{"name":"tokenID","type":"uint256"},
+				{"name":"account","type":"address"},
+				{"name":"amount","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "Mint",
+			"inputs": [
+				{"name":"tokenID","type":"uint256"},
+				{"name":"account","type":"address"},
+				{"name":"amount","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "SwapBack",
+			"inputs": [
+				{"name":"tokenID","type":"uint256"},
+				{"name":"account","type":"address"},
+				{"name":"amount","type":"uint256"},
+				{"name":"ethereumAddress","type":"uint256"}
+			],
+			"outputs": [
+			]
+		}
+	]
+}

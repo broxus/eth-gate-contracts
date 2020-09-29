@@ -1,0 +1,3173 @@
+.globl	constructor
+.public	constructor
+.type	constructor, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7_with_init_storage$
+}
+IF
+;; constructor protection
+GETGLOB 6
+THROWIF 51
+PUSHINT 1
+SETGLOB 6
+;; end constructor protection
+; Decode input parameters
+; Decode tokenIds
+LDU 32
+LDDICT
+ROTREV
+PAIR
+SWAP
+ENDS
+;; param: tokenIds
+; constructor ERC20TokenGate
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+GETGLOB 2
+;; ==
+EQUAL
+THROWIFNOT 100
+ACCEPT
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+; expValue
+; end expValue
+; colValue
+SETGLOB 18
+; end colValue
+; for
+PUSHINT 0
+;; decl: i
+PUSHCONT {
+	;; push identifier i
+	DUP
+	;; get member length
+	;; push identifier tokenIds
+	PUSH S2
+	FIRST
+	;; <
+	LESS
+}
+PUSHCONT {
+	;; index
+	;; push identifier i
+	DUP
+	;; push identifier tokenIds
+	PUSH S2
+	INDEX 1
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	TRUE
+	CALL $updateTokenSupport_internal$
+	;; ++
+	; expValue
+	; end expValue
+	INC
+	; colValue
+	; end colValue
+}
+WHILE
+DROP
+; end for
+DROP
+; end constructor ERC20TokenGate
+CALL $c7_to_c4$
+TRUE
+SETGLOB 7
+
+.globl	isTokenSupported
+.public	isTokenSupported
+.type	isTokenSupported, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+; Decode tokenID
+LDU 256
+ENDS
+;; param: tokenID
+; function isTokenSupported
+;; return
+;; index
+;; push identifier tokenID
+DUP
+;; push identifier tokensSupported
+GETGLOB 12
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDI 1
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+NIP
+;; emitting 1 value(s)
+PUSH S1
+EQINT -1
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 96
+	STZEROES
+	STSLICECONST 0
+	STSLICECONST 0
+	STSLICECONST xd078b2ec
+	PUSH S1
+	STIR 1
+	ENDC
+	PUSHINT 1
+	SENDRAWMSG
+}
+IF
+DROP
+; end function isTokenSupported
+EQINT -1
+PUSHCONT {
+	CALL $c7_to_c4$
+}
+IF
+TRUE
+SETGLOB 7
+
+.globl	isTokenSupported_internal
+.type	isTokenSupported_internal, @function
+;; param: tokenID
+; function isTokenSupported
+;; return
+;; index
+;; push identifier tokenID
+DUP
+;; push identifier tokensSupported
+GETGLOB 12
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDI 1
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+NIP
+; end function isTokenSupported
+
+.globl	updateTokenSupport
+.public	updateTokenSupport
+.type	updateTokenSupport, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+; Decode tokenId
+LDU 256
+; Decode supportStatus
+LDI 1
+ENDS
+;; param: tokenId
+;; param: supportStatus
+; modifier onlyOwner
+;; push identifier owner
+GETGLOB 18
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+;; ==
+EQUAL
+THROWIFNOT 135
+ACCEPT
+; function updateTokenSupport
+; expValue
+;; fetch tokensSupported
+GETGLOB 12
+;; push identifier tokenId
+PUSH S2
+SWAP
+; end expValue
+;; push identifier supportStatus
+PUSH S2
+; colValue
+NEWC
+STI 1
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 12
+; end colValue
+; end function updateTokenSupport
+DROP2
+; end modifier onlyOwner
+CALL $c7_to_c4$
+TRUE
+SETGLOB 7
+
+.globl	updateTokenSupport_internal
+.type	updateTokenSupport_internal, @function
+;; param: tokenId
+;; param: supportStatus
+; modifier onlyOwner
+;; push identifier owner
+GETGLOB 18
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+;; ==
+EQUAL
+THROWIFNOT 135
+ACCEPT
+; function updateTokenSupport
+; expValue
+;; fetch tokensSupported
+GETGLOB 12
+;; push identifier tokenId
+PUSH S2
+SWAP
+; end expValue
+;; push identifier supportStatus
+PUSH S2
+; colValue
+NEWC
+STI 1
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 12
+; end colValue
+; end function updateTokenSupport
+DROP2
+; end modifier onlyOwner
+
+.globl	updateSupportStatuses
+.public	updateSupportStatuses
+.type	updateSupportStatuses, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+; Decode tokenIds
+LDU 32
+LDDICT
+ROTREV
+PAIR
+SWAP
+; Decode supportStatuses
+LDU 32
+LDDICT
+ROTREV
+PAIR
+SWAP
+ENDS
+;; param: tokenIds
+;; param: supportStatuses
+; modifier onlyOwner
+;; push identifier owner
+GETGLOB 18
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+;; ==
+EQUAL
+THROWIFNOT 135
+ACCEPT
+; function updateSupportStatuses
+; for
+PUSHINT 0
+;; decl: i
+PUSHCONT {
+	;; push identifier i
+	DUP
+	;; get member length
+	;; push identifier tokenIds
+	PUSH S3
+	FIRST
+	;; <
+	LESS
+}
+PUSHCONT {
+	;; index
+	;; push identifier i
+	DUP
+	;; push identifier tokenIds
+	PUSH S3
+	INDEX 1
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	;; index
+	;; push identifier i
+	PUSH S1
+	;; push identifier supportStatuses
+	PUSH S3
+	INDEX 1
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDI 1
+	CALL $updateTokenSupport_internal$
+	;; ++
+	; expValue
+	; end expValue
+	INC
+	; colValue
+	; end colValue
+}
+WHILE
+DROP
+; end for
+; end function updateSupportStatuses
+DROP2
+; end modifier onlyOwner
+CALL $c7_to_c4$
+TRUE
+SETGLOB 7
+
+.globl	updateSupportStatuses_internal
+.type	updateSupportStatuses_internal, @function
+;; param: tokenIds
+;; param: supportStatuses
+; modifier onlyOwner
+;; push identifier owner
+GETGLOB 18
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+;; ==
+EQUAL
+THROWIFNOT 135
+ACCEPT
+; function updateSupportStatuses
+; for
+PUSHINT 0
+;; decl: i
+PUSHCONT {
+	;; push identifier i
+	DUP
+	;; get member length
+	;; push identifier tokenIds
+	PUSH S3
+	FIRST
+	;; <
+	LESS
+}
+PUSHCONT {
+	;; index
+	;; push identifier i
+	DUP
+	;; push identifier tokenIds
+	PUSH S3
+	INDEX 1
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	;; index
+	;; push identifier i
+	PUSH S1
+	;; push identifier supportStatuses
+	PUSH S3
+	INDEX 1
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDI 1
+	CALL $updateTokenSupport_internal$
+	;; ++
+	; expValue
+	; end expValue
+	INC
+	; colValue
+	; end colValue
+}
+WHILE
+DROP
+; end for
+; end function updateSupportStatuses
+DROP2
+; end modifier onlyOwner
+
+.globl	balanceOf
+.public	balanceOf
+.type	balanceOf, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+; Decode tokenID
+LDU 256
+; Decode account
+LDMSGADDRQ
+PUSHCONT {
+	;; load next cell
+	LDREF
+	ENDS
+	CTOS
+	LDMSGADDR
+}
+IFNOT
+ENDS
+;; param: tokenID
+;; param: account
+; function balanceOf
+;; return
+;; index
+;; push identifier account
+DUP
+;; index
+;; push identifier tokenID
+PUSH S2
+;; push identifier tokenUserBalance
+GETGLOB 10
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PLDU 256
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+NIP
+NIP
+;; emitting 1 value(s)
+PUSH S1
+EQINT -1
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 96
+	STZEROES
+	STSLICECONST 0
+	STSLICECONST 0
+	STSLICECONST xdbaa13d5
+	PUSH S1
+	STUR 256
+	ENDC
+	PUSHINT 1
+	SENDRAWMSG
+}
+IF
+DROP
+; end function balanceOf
+EQINT -1
+PUSHCONT {
+	CALL $c7_to_c4$
+}
+IF
+TRUE
+SETGLOB 7
+
+.globl	balanceOf_internal
+.type	balanceOf_internal, @function
+;; param: tokenID
+;; param: account
+; function balanceOf
+;; return
+;; index
+;; push identifier account
+DUP
+;; index
+;; push identifier tokenID
+PUSH S2
+;; push identifier tokenUserBalance
+GETGLOB 10
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PLDU 256
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+NIP
+NIP
+; end function balanceOf
+
+.globl	decimals
+.public	decimals
+.type	decimals, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+; Decode tokenID
+LDU 256
+ENDS
+;; param: tokenID
+; function decimals
+;; return
+;; index
+;; push identifier tokenID
+DUP
+;; push identifier tokenDecimals
+GETGLOB 15
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDU 8
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+NIP
+;; emitting 1 value(s)
+PUSH S1
+EQINT -1
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 96
+	STZEROES
+	STSLICECONST 0
+	STSLICECONST 0
+	STSLICECONST xb39771d3
+	PUSH S1
+	STUR 8
+	ENDC
+	PUSHINT 1
+	SENDRAWMSG
+}
+IF
+DROP
+; end function decimals
+EQINT -1
+PUSHCONT {
+	CALL $c7_to_c4$
+}
+IF
+TRUE
+SETGLOB 7
+
+.globl	decimals_internal
+.type	decimals_internal, @function
+;; param: tokenID
+; function decimals
+;; return
+;; index
+;; push identifier tokenID
+DUP
+;; push identifier tokenDecimals
+GETGLOB 15
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDU 8
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+NIP
+; end function decimals
+
+.globl	ethereumDecimals
+.public	ethereumDecimals
+.type	ethereumDecimals, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+; Decode tokenID
+LDU 256
+ENDS
+;; param: tokenID
+; function ethereumDecimals
+;; return
+;; index
+;; push identifier tokenID
+DUP
+;; push identifier tokenEthereumDecimals
+GETGLOB 14
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDU 8
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+NIP
+;; emitting 1 value(s)
+PUSH S1
+EQINT -1
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 96
+	STZEROES
+	STSLICECONST 0
+	STSLICECONST 0
+	STSLICECONST xaae7cbef
+	PUSH S1
+	STUR 8
+	ENDC
+	PUSHINT 1
+	SENDRAWMSG
+}
+IF
+DROP
+; end function ethereumDecimals
+EQINT -1
+PUSHCONT {
+	CALL $c7_to_c4$
+}
+IF
+TRUE
+SETGLOB 7
+
+.globl	ethereumDecimals_internal
+.type	ethereumDecimals_internal, @function
+;; param: tokenID
+; function ethereumDecimals
+;; return
+;; index
+;; push identifier tokenID
+DUP
+;; push identifier tokenEthereumDecimals
+GETGLOB 14
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDU 8
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+NIP
+; end function ethereumDecimals
+
+.globl	name
+.public	name
+.type	name, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+; Decode tokenID
+LDU 256
+ENDS
+;; param: tokenID
+; function name
+;; return
+;; index
+;; push identifier tokenID
+DUP
+;; push identifier tokenName
+GETGLOB 16
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	LDU 32
+	PLDDICT
+	PAIR
+}
+PUSHCONT {
+	PUSHINT 0
+	NEWDICT
+	PAIR
+}
+IFELSE
+NIP
+;; emitting 1 value(s)
+PUSH S1
+EQINT -1
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 96
+	STZEROES
+	STSLICECONST 0
+	STSLICECONST 0
+	STSLICECONST xe9b74ce6
+	PUSH S1
+	UNPAIR
+	XCHG s2
+	STU 32
+	STDICT
+	ENDC
+	PUSHINT 1
+	SENDRAWMSG
+}
+IF
+DROP
+; end function name
+EQINT -1
+PUSHCONT {
+	CALL $c7_to_c4$
+}
+IF
+TRUE
+SETGLOB 7
+
+.globl	name_internal
+.type	name_internal, @function
+;; param: tokenID
+; function name
+;; return
+;; index
+;; push identifier tokenID
+DUP
+;; push identifier tokenName
+GETGLOB 16
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	LDU 32
+	PLDDICT
+	PAIR
+}
+PUSHCONT {
+	PUSHINT 0
+	NEWDICT
+	PAIR
+}
+IFELSE
+NIP
+; end function name
+
+.globl	symbol
+.public	symbol
+.type	symbol, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+; Decode tokenID
+LDU 256
+ENDS
+;; param: tokenID
+; function symbol
+;; return
+;; index
+;; push identifier tokenID
+DUP
+;; push identifier tokenSymbol
+GETGLOB 17
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	LDU 32
+	PLDDICT
+	PAIR
+}
+PUSHCONT {
+	PUSHINT 0
+	NEWDICT
+	PAIR
+}
+IFELSE
+NIP
+;; emitting 1 value(s)
+PUSH S1
+EQINT -1
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 96
+	STZEROES
+	STSLICECONST 0
+	STSLICECONST 0
+	STSLICECONST xf07a6816
+	PUSH S1
+	UNPAIR
+	XCHG s2
+	STU 32
+	STDICT
+	ENDC
+	PUSHINT 1
+	SENDRAWMSG
+}
+IF
+DROP
+; end function symbol
+EQINT -1
+PUSHCONT {
+	CALL $c7_to_c4$
+}
+IF
+TRUE
+SETGLOB 7
+
+.globl	symbol_internal
+.type	symbol_internal, @function
+;; param: tokenID
+; function symbol
+;; return
+;; index
+;; push identifier tokenID
+DUP
+;; push identifier tokenSymbol
+GETGLOB 17
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	LDU 32
+	PLDDICT
+	PAIR
+}
+PUSHCONT {
+	PUSHINT 0
+	NEWDICT
+	PAIR
+}
+IFELSE
+NIP
+; end function symbol
+
+.globl	totalSupply
+.public	totalSupply
+.type	totalSupply, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+; Decode tokenID
+LDU 256
+ENDS
+;; param: tokenID
+; function totalSupply
+;; return
+;; index
+;; push identifier tokenID
+DUP
+;; push identifier tokenTotalSupply
+GETGLOB 13
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDU 256
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+NIP
+;; emitting 1 value(s)
+PUSH S1
+EQINT -1
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 96
+	STZEROES
+	STSLICECONST 0
+	STSLICECONST 0
+	STSLICECONST xcfae2617
+	PUSH S1
+	STUR 256
+	ENDC
+	PUSHINT 1
+	SENDRAWMSG
+}
+IF
+DROP
+; end function totalSupply
+EQINT -1
+PUSHCONT {
+	CALL $c7_to_c4$
+}
+IF
+TRUE
+SETGLOB 7
+
+.globl	totalSupply_internal
+.type	totalSupply_internal, @function
+;; param: tokenID
+; function totalSupply
+;; return
+;; index
+;; push identifier tokenID
+DUP
+;; push identifier tokenTotalSupply
+GETGLOB 13
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDU 256
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+NIP
+; end function totalSupply
+
+.globl	setUpToken
+.public	setUpToken
+.type	setUpToken, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+; Decode tokenID
+LDU 256
+; Decode _decimals
+LDU 8
+; Decode _ethereumDecimals
+LDU 8
+; Decode _name
+LDU 32
+LDDICT
+ROTREV
+PAIR
+SWAP
+; Decode _symbol
+LDU 32
+LDDICT
+ROTREV
+PAIR
+SWAP
+ENDS
+;; param: tokenID
+;; param: _decimals
+;; param: _ethereumDecimals
+;; param: _name
+;; param: _symbol
+; modifier onlyOwner
+;; push identifier owner
+GETGLOB 18
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+;; ==
+EQUAL
+THROWIFNOT 135
+ACCEPT
+; function setUpToken
+;; push identifier _decimals
+PUSH S3
+;; push identifier _ethereumDecimals
+PUSH S3
+;; <=
+LEQ
+THROWIFNOT 140
+; expValue
+;; fetch tokenDecimals
+GETGLOB 15
+;; push identifier tokenID
+PUSH S5
+SWAP
+; end expValue
+;; push identifier _decimals
+PUSH S5
+; colValue
+NEWC
+STU 8
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 15
+; end colValue
+; expValue
+;; fetch tokenEthereumDecimals
+GETGLOB 14
+;; push identifier tokenID
+PUSH S5
+SWAP
+; end expValue
+;; push identifier _ethereumDecimals
+PUSH S4
+; colValue
+NEWC
+STU 8
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 14
+; end colValue
+; expValue
+;; fetch tokenName
+GETGLOB 16
+;; push identifier tokenID
+PUSH S5
+SWAP
+; end expValue
+;; push identifier _name
+PUSH S3
+; colValue
+UNPAIR
+SWAP
+NEWC
+STU 32
+STDICT
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 16
+; end colValue
+; expValue
+;; fetch tokenSymbol
+GETGLOB 17
+;; push identifier tokenID
+PUSH S5
+SWAP
+; end expValue
+;; push identifier _symbol
+PUSH S2
+; colValue
+UNPAIR
+SWAP
+NEWC
+STU 32
+STDICT
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 17
+; end colValue
+; end function setUpToken
+BLKDROP 5
+; end modifier onlyOwner
+CALL $c7_to_c4$
+TRUE
+SETGLOB 7
+
+.globl	setUpToken_internal
+.type	setUpToken_internal, @function
+;; param: tokenID
+;; param: _decimals
+;; param: _ethereumDecimals
+;; param: _name
+;; param: _symbol
+; modifier onlyOwner
+;; push identifier owner
+GETGLOB 18
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+;; ==
+EQUAL
+THROWIFNOT 135
+ACCEPT
+; function setUpToken
+;; push identifier _decimals
+PUSH S3
+;; push identifier _ethereumDecimals
+PUSH S3
+;; <=
+LEQ
+THROWIFNOT 140
+; expValue
+;; fetch tokenDecimals
+GETGLOB 15
+;; push identifier tokenID
+PUSH S5
+SWAP
+; end expValue
+;; push identifier _decimals
+PUSH S5
+; colValue
+NEWC
+STU 8
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 15
+; end colValue
+; expValue
+;; fetch tokenEthereumDecimals
+GETGLOB 14
+;; push identifier tokenID
+PUSH S5
+SWAP
+; end expValue
+;; push identifier _ethereumDecimals
+PUSH S4
+; colValue
+NEWC
+STU 8
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 14
+; end colValue
+; expValue
+;; fetch tokenName
+GETGLOB 16
+;; push identifier tokenID
+PUSH S5
+SWAP
+; end expValue
+;; push identifier _name
+PUSH S3
+; colValue
+UNPAIR
+SWAP
+NEWC
+STU 32
+STDICT
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 16
+; end colValue
+; expValue
+;; fetch tokenSymbol
+GETGLOB 17
+;; push identifier tokenID
+PUSH S5
+SWAP
+; end expValue
+;; push identifier _symbol
+PUSH S2
+; colValue
+UNPAIR
+SWAP
+NEWC
+STU 32
+STDICT
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 17
+; end colValue
+; end function setUpToken
+BLKDROP 5
+; end modifier onlyOwner
+
+.globl	transfer
+.public	transfer
+.type	transfer, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+; Decode tokenID
+LDU 256
+; Decode recipient
+LDMSGADDRQ
+PUSHCONT {
+	;; load next cell
+	LDREF
+	ENDS
+	CTOS
+	LDMSGADDR
+}
+IFNOT
+; Decode amount
+LDUQ 256
+PUSHCONT {
+	;; load next cell
+	LDREF
+	ENDS
+	CTOS
+	LDU 256
+}
+IFNOT
+ENDS
+;; param: tokenID
+;; param: recipient
+;; param: amount
+; modifier onlyUnpaused
+;; push identifier paused
+GETGLOB 11
+FALSE
+;; ==
+EQUAL
+THROWIFNOT 150
+; function transfer
+;; index
+;; get member sender
+GETGLOB 9
+;; index
+;; push identifier tokenID
+PUSH S3
+;; push identifier tokenUserBalance
+GETGLOB 10
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PLDU 256
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+;; push identifier amount
+PUSH S1
+;; >=
+GEQ
+THROWIFNOT 130
+;; index
+;; push identifier tokenID
+PUSH S2
+;; push identifier tokensSupported
+GETGLOB 12
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDI 1
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+THROWIFNOT 125
+; expValue
+;; fetch tokenUserBalance
+GETGLOB 10
+;; push identifier tokenID
+PUSH S3
+SWAP
+PUSH2 S1, S0
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+;; get member sender
+GETGLOB 9
+SWAP
+; end expValue
+;; index
+;; get member sender
+GETGLOB 9
+;; index
+;; push identifier tokenID
+PUSH S7
+;; push identifier tokenUserBalance
+GETGLOB 10
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PLDU 256
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+;; push identifier amount
+PUSH S5
+;; -
+SUB
+UFITS 256
+; colValue
+NEWC
+STU 256
+ROTREV
+PUSHINT 267
+DICTSETB
+NEWC
+STDICT
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 10
+; end colValue
+; expValue
+;; fetch tokenUserBalance
+GETGLOB 10
+;; push identifier tokenID
+PUSH S3
+SWAP
+PUSH2 S1, S0
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+;; push identifier recipient
+PUSH S4
+SWAP
+; end expValue
+;; index
+;; push identifier recipient
+PUSH S5
+;; index
+;; push identifier tokenID
+PUSH S7
+;; push identifier tokenUserBalance
+GETGLOB 10
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PLDU 256
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+;; push identifier amount
+PUSH S5
+;; +
+ADD
+; colValue
+NEWC
+STU 256
+ROTREV
+PUSHINT 267
+DICTSETB
+NEWC
+STDICT
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 10
+; end colValue
+;; emit Transfer
+NEWC
+PUSHSLICE xc0000000000000000000000002_
+STSLICER
+STSLICECONST 0
+STSLICECONST 1
+NEWC
+STSLICECONST x386cb84d
+;; tokenID
+;; push identifier tokenID
+PUSH S4
+STUR 256
+;; _from
+;; get member sender
+GETGLOB 9
+STSLICER
+;; _to
+;; push identifier recipient
+PUSH S3
+STSLICER
+NEWC
+;; amount
+;; push identifier amount
+PUSH S3
+STUR 256
+STBREFR
+STBREFR
+ENDC
+PUSHINT 1
+SENDRAWMSG
+;; transfer()
+;; get member sender
+GETGLOB 9
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 109
+STZEROES
+STSLICECONST 0
+STSLICECONST 0
+ENDC
+PUSHINT 64
+SENDRAWMSG
+; end function transfer
+BLKDROP 3
+; end modifier onlyUnpaused
+CALL $c7_to_c4$
+TRUE
+SETGLOB 7
+
+.globl	transfer_internal
+.type	transfer_internal, @function
+;; param: tokenID
+;; param: recipient
+;; param: amount
+; modifier onlyUnpaused
+;; push identifier paused
+GETGLOB 11
+FALSE
+;; ==
+EQUAL
+THROWIFNOT 150
+; function transfer
+;; index
+;; get member sender
+GETGLOB 9
+;; index
+;; push identifier tokenID
+PUSH S3
+;; push identifier tokenUserBalance
+GETGLOB 10
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PLDU 256
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+;; push identifier amount
+PUSH S1
+;; >=
+GEQ
+THROWIFNOT 130
+;; index
+;; push identifier tokenID
+PUSH S2
+;; push identifier tokensSupported
+GETGLOB 12
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDI 1
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+THROWIFNOT 125
+; expValue
+;; fetch tokenUserBalance
+GETGLOB 10
+;; push identifier tokenID
+PUSH S3
+SWAP
+PUSH2 S1, S0
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+;; get member sender
+GETGLOB 9
+SWAP
+; end expValue
+;; index
+;; get member sender
+GETGLOB 9
+;; index
+;; push identifier tokenID
+PUSH S7
+;; push identifier tokenUserBalance
+GETGLOB 10
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PLDU 256
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+;; push identifier amount
+PUSH S5
+;; -
+SUB
+UFITS 256
+; colValue
+NEWC
+STU 256
+ROTREV
+PUSHINT 267
+DICTSETB
+NEWC
+STDICT
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 10
+; end colValue
+; expValue
+;; fetch tokenUserBalance
+GETGLOB 10
+;; push identifier tokenID
+PUSH S3
+SWAP
+PUSH2 S1, S0
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+;; push identifier recipient
+PUSH S4
+SWAP
+; end expValue
+;; index
+;; push identifier recipient
+PUSH S5
+;; index
+;; push identifier tokenID
+PUSH S7
+;; push identifier tokenUserBalance
+GETGLOB 10
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PLDU 256
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+;; push identifier amount
+PUSH S5
+;; +
+ADD
+; colValue
+NEWC
+STU 256
+ROTREV
+PUSHINT 267
+DICTSETB
+NEWC
+STDICT
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 10
+; end colValue
+;; emit Transfer
+NEWC
+PUSHSLICE xc0000000000000000000000002_
+STSLICER
+STSLICECONST 0
+STSLICECONST 1
+NEWC
+STSLICECONST x386cb84d
+;; tokenID
+;; push identifier tokenID
+PUSH S4
+STUR 256
+;; _from
+;; get member sender
+GETGLOB 9
+STSLICER
+;; _to
+;; push identifier recipient
+PUSH S3
+STSLICER
+NEWC
+;; amount
+;; push identifier amount
+PUSH S3
+STUR 256
+STBREFR
+STBREFR
+ENDC
+PUSHINT 1
+SENDRAWMSG
+;; transfer()
+;; get member sender
+GETGLOB 9
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 109
+STZEROES
+STSLICECONST 0
+STSLICECONST 0
+ENDC
+PUSHINT 64
+SENDRAWMSG
+; end function transfer
+BLKDROP 3
+; end modifier onlyUnpaused
+
+.globl	mint
+.public	mint
+.type	mint, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+; Decode tokenID
+LDU 256
+; Decode crystalsToSend
+LDUQ 128
+PUSHCONT {
+	;; load next cell
+	LDREF
+	ENDS
+	CTOS
+	LDU 128
+}
+IFNOT
+; Decode recipient
+LDMSGADDRQ
+PUSHCONT {
+	;; load next cell
+	LDREF
+	ENDS
+	CTOS
+	LDMSGADDR
+}
+IFNOT
+; Decode amount
+LDUQ 256
+PUSHCONT {
+	;; load next cell
+	LDREF
+	ENDS
+	CTOS
+	LDU 256
+}
+IFNOT
+ENDS
+;; param: tokenID
+;; param: crystalsToSend
+;; param: recipient
+;; param: amount
+; modifier onlyOwner
+;; push identifier owner
+GETGLOB 18
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+;; ==
+EQUAL
+THROWIFNOT 135
+ACCEPT
+; function mint
+;; if
+;; push identifier crystalsToSend
+PUSH S2
+GTINT 0
+PUSHCONT {
+	;; transfer()
+	;; push identifier crystalsToSend
+	PUSH S2
+	;; push identifier recipient
+	PUSH S2
+	NEWC
+	STSLICECONST x42_
+	STSLICE
+	SWAP
+	STGRAMS
+	PUSHINT 105
+	STZEROES
+	STSLICECONST 0
+	STSLICECONST 0
+	ENDC
+	PUSHINT 1
+	SENDRAWMSG
+}
+IF
+;; end if
+; expValue
+;; fetch tokenTotalSupply
+GETGLOB 13
+;; push identifier tokenID
+PUSH S4
+SWAP
+; end expValue
+;; index
+;; push identifier tokenID
+PUSH S5
+;; push identifier tokenTotalSupply
+GETGLOB 13
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDU 256
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+;; push identifier amount
+PUSH S3
+;; +
+ADD
+; colValue
+NEWC
+STU 256
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 13
+; end colValue
+; expValue
+;; fetch tokenUserBalance
+GETGLOB 10
+;; push identifier tokenID
+PUSH S4
+SWAP
+PUSH2 S1, S0
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+;; push identifier recipient
+PUSH S4
+SWAP
+; end expValue
+;; index
+;; push identifier recipient
+PUSH S5
+;; index
+;; push identifier tokenID
+PUSH S8
+;; push identifier tokenUserBalance
+GETGLOB 10
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PLDU 256
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+;; push identifier amount
+PUSH S5
+;; +
+ADD
+; colValue
+NEWC
+STU 256
+ROTREV
+PUSHINT 267
+DICTSETB
+NEWC
+STDICT
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 10
+; end colValue
+;; emit Mint
+NEWC
+PUSHSLICE xc0000000000000000000000002_
+STSLICER
+STSLICECONST 0
+STSLICECONST 0
+STSLICECONST x0d6a231b
+;; tokenID
+;; push identifier tokenID
+PUSH S4
+STUR 256
+;; account
+;; push identifier recipient
+PUSH S2
+STSLICER
+;; amount
+;; push identifier amount
+PUSH S1
+STUR 256
+ENDC
+PUSHINT 1
+SENDRAWMSG
+; end function mint
+BLKDROP 4
+; end modifier onlyOwner
+CALL $c7_to_c4$
+TRUE
+SETGLOB 7
+
+.globl	mint_internal
+.type	mint_internal, @function
+;; param: tokenID
+;; param: crystalsToSend
+;; param: recipient
+;; param: amount
+; modifier onlyOwner
+;; push identifier owner
+GETGLOB 18
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+;; ==
+EQUAL
+THROWIFNOT 135
+ACCEPT
+; function mint
+;; if
+;; push identifier crystalsToSend
+PUSH S2
+GTINT 0
+PUSHCONT {
+	;; transfer()
+	;; push identifier crystalsToSend
+	PUSH S2
+	;; push identifier recipient
+	PUSH S2
+	NEWC
+	STSLICECONST x42_
+	STSLICE
+	SWAP
+	STGRAMS
+	PUSHINT 105
+	STZEROES
+	STSLICECONST 0
+	STSLICECONST 0
+	ENDC
+	PUSHINT 1
+	SENDRAWMSG
+}
+IF
+;; end if
+; expValue
+;; fetch tokenTotalSupply
+GETGLOB 13
+;; push identifier tokenID
+PUSH S4
+SWAP
+; end expValue
+;; index
+;; push identifier tokenID
+PUSH S5
+;; push identifier tokenTotalSupply
+GETGLOB 13
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDU 256
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+;; push identifier amount
+PUSH S3
+;; +
+ADD
+; colValue
+NEWC
+STU 256
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 13
+; end colValue
+; expValue
+;; fetch tokenUserBalance
+GETGLOB 10
+;; push identifier tokenID
+PUSH S4
+SWAP
+PUSH2 S1, S0
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+;; push identifier recipient
+PUSH S4
+SWAP
+; end expValue
+;; index
+;; push identifier recipient
+PUSH S5
+;; index
+;; push identifier tokenID
+PUSH S8
+;; push identifier tokenUserBalance
+GETGLOB 10
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PLDU 256
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+;; push identifier amount
+PUSH S5
+;; +
+ADD
+; colValue
+NEWC
+STU 256
+ROTREV
+PUSHINT 267
+DICTSETB
+NEWC
+STDICT
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 10
+; end colValue
+;; emit Mint
+NEWC
+PUSHSLICE xc0000000000000000000000002_
+STSLICER
+STSLICECONST 0
+STSLICECONST 0
+STSLICECONST x0d6a231b
+;; tokenID
+;; push identifier tokenID
+PUSH S4
+STUR 256
+;; account
+;; push identifier recipient
+PUSH S2
+STSLICER
+;; amount
+;; push identifier amount
+PUSH S1
+STUR 256
+ENDC
+PUSHINT 1
+SENDRAWMSG
+; end function mint
+BLKDROP 4
+; end modifier onlyOwner
+
+.globl	burn
+.public	burn
+.type	burn, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+; Decode tokenID
+LDU 256
+; Decode recipient
+LDMSGADDRQ
+PUSHCONT {
+	;; load next cell
+	LDREF
+	ENDS
+	CTOS
+	LDMSGADDR
+}
+IFNOT
+; Decode amount
+LDUQ 256
+PUSHCONT {
+	;; load next cell
+	LDREF
+	ENDS
+	CTOS
+	LDU 256
+}
+IFNOT
+ENDS
+;; param: tokenID
+;; param: recipient
+;; param: amount
+; modifier onlyOwner
+;; push identifier owner
+GETGLOB 18
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+;; ==
+EQUAL
+THROWIFNOT 135
+ACCEPT
+; function burn
+;; push identifier tokenID
+PUSH S2
+;; push identifier recipient
+PUSH S2
+;; push identifier amount
+PUSH S2
+CALL $_burn_internal$
+;; emit Burn
+NEWC
+PUSHSLICE xc0000000000000000000000002_
+STSLICER
+STSLICECONST 0
+STSLICECONST 0
+STSLICECONST x41e25b4c
+;; tokenID
+;; push identifier tokenID
+PUSH S3
+STUR 256
+;; account
+;; push identifier recipient
+PUSH S2
+STSLICER
+;; amount
+;; push identifier amount
+PUSH S1
+STUR 256
+ENDC
+PUSHINT 1
+SENDRAWMSG
+; end function burn
+BLKDROP 3
+; end modifier onlyOwner
+CALL $c7_to_c4$
+TRUE
+SETGLOB 7
+
+.globl	burn_internal
+.type	burn_internal, @function
+;; param: tokenID
+;; param: recipient
+;; param: amount
+; modifier onlyOwner
+;; push identifier owner
+GETGLOB 18
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+;; ==
+EQUAL
+THROWIFNOT 135
+ACCEPT
+; function burn
+;; push identifier tokenID
+PUSH S2
+;; push identifier recipient
+PUSH S2
+;; push identifier amount
+PUSH S2
+CALL $_burn_internal$
+;; emit Burn
+NEWC
+PUSHSLICE xc0000000000000000000000002_
+STSLICER
+STSLICECONST 0
+STSLICECONST 0
+STSLICECONST x41e25b4c
+;; tokenID
+;; push identifier tokenID
+PUSH S3
+STUR 256
+;; account
+;; push identifier recipient
+PUSH S2
+STSLICER
+;; amount
+;; push identifier amount
+PUSH S1
+STUR 256
+ENDC
+PUSHINT 1
+SENDRAWMSG
+; end function burn
+BLKDROP 3
+; end modifier onlyOwner
+
+.globl	updatePaused
+.public	updatePaused
+.type	updatePaused, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+; Decode status
+LDI 1
+ENDS
+;; param: status
+; modifier onlyOwner
+;; push identifier owner
+GETGLOB 18
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+;; ==
+EQUAL
+THROWIFNOT 135
+ACCEPT
+; function updatePaused
+; expValue
+; end expValue
+;; push identifier status
+DUP
+; colValue
+SETGLOB 11
+; end colValue
+; end function updatePaused
+DROP
+; end modifier onlyOwner
+CALL $c7_to_c4$
+TRUE
+SETGLOB 7
+
+.globl	updatePaused_internal
+.type	updatePaused_internal, @function
+;; param: status
+; modifier onlyOwner
+;; push identifier owner
+GETGLOB 18
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+;; ==
+EQUAL
+THROWIFNOT 135
+ACCEPT
+; function updatePaused
+; expValue
+; end expValue
+;; push identifier status
+DUP
+; colValue
+SETGLOB 11
+; end colValue
+; end function updatePaused
+DROP
+; end modifier onlyOwner
+
+.globl	getPaused
+.public	getPaused
+.type	getPaused, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+ENDS
+; function getPaused
+;; return
+;; push identifier paused
+GETGLOB 11
+;; emitting 1 value(s)
+PUSH S1
+EQINT -1
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 96
+	STZEROES
+	STSLICECONST 0
+	STSLICECONST 0
+	STSLICECONST xa3e8a996
+	PUSH S1
+	STIR 1
+	ENDC
+	PUSHINT 1
+	SENDRAWMSG
+}
+IF
+DROP
+; end function getPaused
+EQINT -1
+PUSHCONT {
+	CALL $c7_to_c4$
+}
+IF
+TRUE
+SETGLOB 7
+
+.globl	getPaused_internal
+.type	getPaused_internal, @function
+; function getPaused
+;; return
+;; push identifier paused
+GETGLOB 11
+; end function getPaused
+
+.globl	_burn_internal
+.type	_burn_internal, @function
+;; param: tokenID
+;; param: recipient
+;; param: amount
+; function _burn
+; expValue
+;; fetch tokenTotalSupply
+GETGLOB 13
+;; push identifier tokenID
+PUSH S3
+SWAP
+; end expValue
+;; index
+;; push identifier tokenID
+PUSH S4
+;; push identifier tokenTotalSupply
+GETGLOB 13
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDU 256
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+;; push identifier amount
+PUSH S3
+;; -
+SUB
+UFITS 256
+; colValue
+NEWC
+STU 256
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 13
+; end colValue
+; expValue
+;; fetch tokenUserBalance
+GETGLOB 10
+;; push identifier tokenID
+PUSH S3
+SWAP
+PUSH2 S1, S0
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+;; push identifier recipient
+PUSH S4
+SWAP
+; end expValue
+;; index
+;; push identifier recipient
+PUSH S5
+;; index
+;; push identifier tokenID
+PUSH S7
+;; push identifier tokenUserBalance
+GETGLOB 10
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PLDU 256
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+;; push identifier amount
+PUSH S5
+;; -
+SUB
+UFITS 256
+; colValue
+NEWC
+STU 256
+ROTREV
+PUSHINT 267
+DICTSETB
+NEWC
+STDICT
+ROTREV
+PUSHINT 256
+DICTUSETB
+SETGLOB 10
+; end colValue
+BLKDROP 3
+; end function _burn
+
+.globl	swapBack
+.public	swapBack
+.type	swapBack, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+; Decode tokenID
+LDU 256
+; Decode amount
+LDUQ 256
+PUSHCONT {
+	;; load next cell
+	LDREF
+	ENDS
+	CTOS
+	LDU 256
+}
+IFNOT
+; Decode ethereumAddress
+LDUQ 256
+PUSHCONT {
+	;; load next cell
+	LDREF
+	ENDS
+	CTOS
+	LDU 256
+}
+IFNOT
+ENDS
+;; param: tokenID
+;; param: amount
+;; param: ethereumAddress
+; function swapBack
+;; index
+;; get member sender
+GETGLOB 9
+;; index
+;; push identifier tokenID
+PUSH S3
+;; push identifier tokenUserBalance
+GETGLOB 10
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PLDU 256
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+;; push identifier amount
+PUSH S2
+;; >=
+GEQ
+THROWIFNOT 130
+;; index
+;; push identifier tokenID
+PUSH S2
+;; push identifier tokensSupported
+GETGLOB 12
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDI 1
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+THROWIFNOT 125
+;; push identifier tokenID
+PUSH S2
+;; get member sender
+GETGLOB 9
+;; push identifier amount
+PUSH S3
+CALL $_burn_internal$
+;; emit SwapBack
+NEWC
+PUSHSLICE xc0000000000000000000000002_
+STSLICER
+STSLICECONST 0
+STSLICECONST 1
+NEWC
+STSLICECONST x6748c92e
+;; tokenID
+;; push identifier tokenID
+PUSH S4
+STUR 256
+;; account
+;; get member sender
+GETGLOB 9
+STSLICER
+;; amount
+;; push identifier amount
+PUSH S3
+STUR 256
+NEWC
+;; ethereumAddress
+;; push identifier ethereumAddress
+PUSH S3
+STUR 256
+STBREFR
+STBREFR
+ENDC
+PUSHINT 1
+SENDRAWMSG
+;; transfer()
+;; get member sender
+GETGLOB 9
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 109
+STZEROES
+STSLICECONST 0
+STSLICECONST 0
+ENDC
+PUSHINT 64
+SENDRAWMSG
+BLKDROP 3
+; end function swapBack
+CALL $c7_to_c4$
+TRUE
+SETGLOB 7
+
+.globl	swapBack_internal
+.type	swapBack_internal, @function
+;; param: tokenID
+;; param: amount
+;; param: ethereumAddress
+; function swapBack
+;; index
+;; get member sender
+GETGLOB 9
+;; index
+;; push identifier tokenID
+PUSH S3
+;; push identifier tokenUserBalance
+GETGLOB 10
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PLDU 256
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+;; push identifier amount
+PUSH S2
+;; >=
+GEQ
+THROWIFNOT 130
+;; index
+;; push identifier tokenID
+PUSH S2
+;; push identifier tokensSupported
+GETGLOB 12
+PUSHINT 256
+DICTUGET
+PUSHCONT {
+	PLDI 1
+}
+PUSHCONT {
+	PUSHINT 0
+}
+IFELSE
+THROWIFNOT 125
+;; push identifier tokenID
+PUSH S2
+;; get member sender
+GETGLOB 9
+;; push identifier amount
+PUSH S3
+CALL $_burn_internal$
+;; emit SwapBack
+NEWC
+PUSHSLICE xc0000000000000000000000002_
+STSLICER
+STSLICECONST 0
+STSLICECONST 1
+NEWC
+STSLICECONST x6748c92e
+;; tokenID
+;; push identifier tokenID
+PUSH S4
+STUR 256
+;; account
+;; get member sender
+GETGLOB 9
+STSLICER
+;; amount
+;; push identifier amount
+PUSH S3
+STUR 256
+NEWC
+;; ethereumAddress
+;; push identifier ethereumAddress
+PUSH S3
+STUR 256
+STBREFR
+STBREFR
+ENDC
+PUSHINT 1
+SENDRAWMSG
+;; transfer()
+;; get member sender
+GETGLOB 9
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 109
+STZEROES
+STSLICECONST 0
+STSLICECONST 0
+ENDC
+PUSHINT 64
+SENDRAWMSG
+BLKDROP 3
+; end function swapBack
+
+.globl	transferGrams
+.public	transferGrams
+.type	transferGrams, @function
+GETGLOB 1
+ISNULL
+PUSHCONT {
+	CALL $c4_to_c7$
+}
+IF
+; Decode input parameters
+; Decode receiver
+LDMSGADDR
+; Decode amount
+LDUQ 128
+PUSHCONT {
+	;; load next cell
+	LDREF
+	ENDS
+	CTOS
+	LDU 128
+}
+IFNOT
+; Decode bounce
+LDIQ 1
+PUSHCONT {
+	;; load next cell
+	LDREF
+	ENDS
+	CTOS
+	LDI 1
+}
+IFNOT
+ENDS
+;; param: receiver
+;; param: amount
+;; param: bounce
+; modifier onlyOwner
+;; push identifier owner
+GETGLOB 18
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+;; ==
+EQUAL
+THROWIFNOT 135
+ACCEPT
+; function transferGrams
+;; transfer()
+;; push identifier amount
+PUSH S1
+;; push identifier receiver
+PUSH S3
+;; push identifier bounce
+PUSH S2
+NEWC
+STSLICECONST x6_
+STI 1
+PUSHINT 3
+STZEROES
+STSLICE
+SWAP
+STGRAMS
+PUSHINT 105
+STZEROES
+STSLICECONST 0
+STSLICECONST 0
+ENDC
+PUSHINT 1
+SENDRAWMSG
+; end function transferGrams
+BLKDROP 3
+; end modifier onlyOwner
+CALL $c7_to_c4$
+TRUE
+SETGLOB 7
+
+.globl	transferGrams_internal
+.type	transferGrams_internal, @function
+;; param: receiver
+;; param: amount
+;; param: bounce
+; modifier onlyOwner
+;; push identifier owner
+GETGLOB 18
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+;; ==
+EQUAL
+THROWIFNOT 135
+ACCEPT
+; function transferGrams
+;; transfer()
+;; push identifier amount
+PUSH S1
+;; push identifier receiver
+PUSH S3
+;; push identifier bounce
+PUSH S2
+NEWC
+STSLICECONST x6_
+STI 1
+PUSHINT 3
+STZEROES
+STSLICE
+SWAP
+STGRAMS
+PUSHINT 105
+STZEROES
+STSLICECONST 0
+STSLICECONST 0
+ENDC
+PUSHINT 1
+SENDRAWMSG
+; end function transferGrams
+BLKDROP 3
+; end modifier onlyOwner
+
+.globl	c7_to_c4
+.type	c7_to_c4, @function
+GETGLOB 2
+NEWC
+STU 256
+GETGLOB 3
+STUR 64
+GETGLOB 6
+STUR 1
+NEWC
+GETGLOB 13
+GETGLOB 14
+GETGLOB 15
+GETGLOB 16
+REVERSE 5, 0
+STDICT
+STDICT
+STDICT
+STDICT
+GETGLOB 10
+GETGLOB 11
+GETGLOB 12
+GETGLOB 18
+GETGLOB 19
+GETGLOB 17
+REVERSE 8, 0
+STBREF
+STDICT
+STI 1
+STDICT
+STU 256
+STU 256
+STDICT
+ENDC
+POP C4
+
+.globl	c4_to_c7
+.type	c4_to_c7, @function
+PUSHROOT
+CTOS        ; c4
+LDU 256      ; pubkey c4
+LDU 64      ; pubkey timestamp c4
+LDU 1       ; pubkey [timestamp] constructor_flag memory
+LDREFRTOS
+LDDICT
+LDDICT
+LDDICT
+PLDDICT
+SETGLOB 16
+SETGLOB 15
+SETGLOB 14
+SETGLOB 13
+LDDICT
+LDI 1
+LDDICT
+LDU 256
+LDU 256
+PLDDICT
+SETGLOB 17
+SETGLOB 19
+SETGLOB 18
+SETGLOB 12
+SETGLOB 11
+SETGLOB 10
+TRUE
+SETGLOB 1   ; pubkey [timestamp] constructor_flag
+SETGLOB 6   ; pubkey [timestamp]
+SETGLOB 3   ; D
+SETGLOB 2
+
+.macro c4_to_c7_with_init_storage
+PUSHROOT
+CTOS        ; c4
+DUP        ; c4 c4
+SBITS      ; c4 bits
+GTINT 1    ; c4 bits>1
+PUSHCONT {
+	LDU 256      ; pubkey c4
+	LDU 64      ; pubkey timestamp c4
+	LDU 1       ; pubkey [timestamp] constructor_flag memory
+	LDREFRTOS
+	LDDICT
+	LDDICT
+	LDDICT
+	PLDDICT
+	SETGLOB 16
+	SETGLOB 15
+	SETGLOB 14
+	SETGLOB 13
+	LDDICT
+	LDI 1
+	LDDICT
+	LDU 256
+	LDU 256
+	PLDDICT
+	SETGLOB 17
+	SETGLOB 19
+	SETGLOB 18
+	SETGLOB 12
+	SETGLOB 11
+	SETGLOB 10
+	TRUE
+	SETGLOB 1   ; pubkey [timestamp] constructor_flag
+	SETGLOB 6   ; pubkey [timestamp]
+	SETGLOB 3   ; D
+	SETGLOB 2
+}
+PUSHCONT {
+	PLDDICT   ; D
+	; init tokenUserBalance
+	NEWDICT
+	SETGLOB 10
+	; init paused
+	PUSHINT 0
+	SETGLOB 11
+	; init tokensSupported
+	NEWDICT
+	SETGLOB 12
+	; init tokenTotalSupply
+	NEWDICT
+	SETGLOB 13
+	; init tokenEthereumDecimals
+	NEWDICT
+	SETGLOB 14
+	; init tokenDecimals
+	NEWDICT
+	SETGLOB 15
+	; init tokenName
+	NEWDICT
+	SETGLOB 16
+	; init tokenSymbol
+	NEWDICT
+	SETGLOB 17
+	; init owner
+	PUSHINT 0
+	SETGLOB 18
+	; init uniqueNonce
+	PUSHINT 0
+	SETGLOB 19
+	; set contract pubkey
+	PUSHINT 0
+	SWAP
+	PUSHINT 64
+	DICTUGET
+	THROWIFNOT 61
+	PLDU 256
+	SETGLOB 2
+	PUSHINT 0 ; timestamp
+	SETGLOB 3
+	PUSHINT 0 ; constructor_flag
+	SETGLOB 6
+	TRUE
+	SETGLOB 1
+	;; init state var: paused
+	FALSE
+	SETGLOB 11
+	;; init state var: uniqueNonce
+	PUSHINT 777123
+	SETGLOB 19
+}
+IFELSE
+
+.internal-alias :main_internal,        0
+.internal	:main_internal
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Function: main_internal
+;; param: contract_balance
+;; param: msg_balance
+;; param: int_msg_info
+;; param: msg_body_slice
+PUSHINT 0  ; main_external trans id
+PUSH S2
+CTOS
+LDSLICE 3
+NIP
+LDI 1     ; bounced tail
+LDMSGADDR   ; bounced src tail
+DROP
+SETGLOB 9
+IFRET
+PUSH S1    ; body
+SEMPTY     ; isEmpty
+PUSHCONT {
+}
+IFJMP
+PUSH S1            ; body
+LDUQ 32            ; [funcId] body' ok
+PUSHCONT {
+	THROW 60
+}
+IFNOTJMP
+PUSH2 S1,S1        ; funcId body' funcId funcId
+PUSHCONT {
+}
+IFNOTJMP
+LESSINT 3            ; funcId body' funcId<3
+PUSH S2              ; funcId body' funcId<3 funcId
+PUSHINT 4294967293   ; funcId body' funcId<3 funcId 4294967293
+GREATER              ; funcId body' funcId<3 funcId>4294967293
+OR                   ; funcId body' funcId<3||funcId>4294967293
+PUSHCONT {
+	THROW 60
+}
+IFJMP
+SWAP  ; body' funcId
+CALL 1
+GETGLOB 7
+ISNULL
+PUSHCONT {
+	THROW 60
+}
+IF
+
+.internal-alias :main_external,        -1
+.internal	:main_external
+PUSHINT -1 ; main_external trans id
+PUSHSLICE x8000000000000000000000000000000000000000000000000000000000000000001_
+SETGLOB 9
+PUSH S1
+CALL $c4_to_c7_with_init_storage$
+LDU 1 ; haveSign msgSlice
+SWAP
+PUSHCONT {
+	PUSHINT 512
+	LDSLICEX ; signatureSlice msgSlice
+	DUP      ; signatureSlice msgSlice msgSlice
+	HASHSU   ; signatureSlice msgSlice hashMsgSlice
+	ROT
+	GETGLOB 2
+	DUP
+	SETGLOB 5
+	CHKSIGNU      ; msgSlice isSigned
+	THROWIFNOT 40 ; msgSlice
+}
+IF
+LDU 64                         ; timestamp msgSlice
+SWAP                           ; msgSlice timestamp
+CALL $replay_protection_macro$ ; msgSlice
+LDU 32  ; expireAt msgSlice
+SWAP    ; msgSlice expireAt
+NOW     ; msgSlice expireAt now
+GREATER ; msgSlice expireAt>now
+THROWIFNOT 57
+LDU  32 ; funcId body
+PUSH S1 ; funcId body funcId
+LESSINT 3            ; funcId body' funcId<3
+PUSH S2              ; funcId body' funcId<3 funcId
+PUSHINT 4294967293   ; funcId body' funcId<3 funcId 4294967293
+GREATER              ; funcId body' funcId<3 funcId>4294967293
+OR                   ; funcId body' funcId<3||funcId>4294967293
+PUSHCONT {
+	THROW 60
+}
+IFJMP
+SWAP    ; body funcId
+CALL 1
+GETGLOB 7
+ISNULL
+PUSHCONT {
+	THROW 60
+}
+IF
+

@@ -1,0 +1,38 @@
+{
+	"ABI version": 2,
+	"header": ["time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+				{"name":"_tokenContract","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "transferTokens",
+			"inputs": [
+				{"name":"tokenID","type":"uint256"},
+				{"name":"recipient","type":"address"},
+				{"name":"amount","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "swapBackTokens",
+			"inputs": [
+				{"name":"tokenID","type":"uint256"},
+				{"name":"amount","type":"uint256"},
+				{"name":"ethereumAddress","type":"uint256"}
+			],
+			"outputs": [
+			]
+		}
+	],
+	"data": [
+	],
+	"events": [
+	]
+}
